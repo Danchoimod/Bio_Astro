@@ -9,28 +9,28 @@ interface Props {
 const { bioData } = Astro.props;
 
 const toolboxSkills = [
-  { name: "TypeScript", level: "Core" },
-  { name: "JavaScript (ES6+)", level: "Core" },
-  { name: "Node.js", level: "Core" },
-  { name: "PostgreSQL", level: "Core" },
-  { name: "Docker", level: "Core" },
-  { name: "Linux / Ubuntu Server", level: "Core" },
-  { name: "SQL", level: "Core" },
-  { name: "RESTful APIs", level: "Core" },
-  { name: "Git & GitHub", level: "Core" },
-  { name: "Redis", level: "Experienced" },
-  { name: "Express.js", level: "Experienced" },
-  { name: "Prisma ORM", level: "Experienced" },
-  { name: "Web Security & Auth", level: "Experienced" },
-  { name: "Astro", level: "Experienced" },
-  { name: "React", level: "Experienced" },
-  { name: "Tailwind CSS", level: "Experienced" },
-  { name: "Vercel", level: "Experienced" },
-  { name: "Nginx", level: "Experienced" },
-  { name: "Vite", level: "Experienced" },
-  { name: "Python", level: "Familiar" },
-  { name: "CI / CD Pipelines", level: "Familiar" },
-  { name: "Next.js", level: "Familiar" },
+  "TypeScript",
+  "JavaScript (ES6+)",
+  "Node.js",
+  "PostgreSQL",
+  "Docker",
+  "Linux / Ubuntu Server",
+  "SQL",
+  "RESTful APIs",
+  "Git & GitHub",
+  "Redis",
+  "Express.js",
+  "Prisma ORM",
+  "Web Security & Auth",
+  "Astro",
+  "React",
+  "Tailwind CSS",
+  "Vercel",
+  "Nginx",
+  "Vite",
+  "Python",
+  "CI / CD Pipelines",
+  "Next.js",
 ];
 ---
 
@@ -38,15 +38,11 @@ const toolboxSkills = [
 <section class="w-full max-w-6xl mx-auto py-16 sm:py-24 z-10 space-y-12">
   <!-- Section Title with MiSide Neon Pink Glow -->
   <div class="flex items-center gap-3">
-    <span
-      class="w-3 h-3 rounded-full bg-pink-500 shadow-[0_0_10px_rgba(236,72,153,0.9)] animate-pulse"
-    ></span>
     <h2
       class="text-2xl sm:text-3xl font-black text-white tracking-wide uppercase font-['Fredoka',sans-serif] flex items-center gap-2"
     >
-      <span>❖ ABOUT ME</span>
-      <span class="text-pink-400 text-sm font-mono font-normal">/ OVERVIEW</span
-      >
+      <span>ABOUT ME</span>
+      <span class="text-pink-400 text-sm font-mono font-normal"></span>
     </h2>
   </div>
 
@@ -78,7 +74,7 @@ const toolboxSkills = [
       class="pt-6 border-t border-pink-500/15 flex flex-wrap items-center justify-between gap-4 text-xs font-mono"
     >
       <div class="flex items-center gap-2 text-pink-300/80">
-        <span class="text-pink-400">❖ STATUS:</span>
+        <span class="text-pink-400"> STATUS:</span>
         <span class="text-white font-bold">{bioData.status.label}</span>
       </div>
     </div>
@@ -87,15 +83,11 @@ const toolboxSkills = [
   <!-- MiSide Toolbox Section: Direct Single Card (No Tabs) -->
   <div class="space-y-6">
     <div class="flex items-center gap-3">
-      <span
-        class="w-3 h-3 rounded-full bg-pink-500 shadow-[0_0_10px_rgba(236,72,153,0.9)] animate-pulse"
-      ></span>
       <h3
         class="text-xl sm:text-2xl font-black text-white tracking-wide uppercase font-['Fredoka',sans-serif] flex items-center gap-2"
       >
-        <span>❖ TOOLBOX & TECH STACK</span>
-        <span class="text-pink-400 text-xs font-mono font-normal">/ SKILLS</span
-        >
+        <span> TOOLBOX</span>
+        <span class="text-pink-400 text-xs font-mono font-normal"></span>
       </h3>
     </div>
 
@@ -106,12 +98,9 @@ const toolboxSkills = [
       <div class="flex flex-wrap gap-2.5">
         {
           toolboxSkills.map((skill) => (
-            <div class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/50 border border-pink-500/15 hover:border-pink-400 hover:bg-pink-950/40 hover:shadow-[0_0_12px_rgba(236,72,153,0.35)] transition-all duration-200 group cursor-default">
+            <div class="flex items-center px-4 py-2 rounded-xl bg-black/50 border border-pink-500/15 hover:border-pink-400 hover:bg-pink-950/40 hover:shadow-[0_0_12px_rgba(236,72,153,0.35)] transition-all duration-200 group cursor-default">
               <span class="text-xs sm:text-sm text-pink-100 group-hover:text-white font-medium">
-                {skill.name}
-              </span>
-              <span class="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-pink-500/15 text-pink-300 group-hover:text-pink-200 group-hover:bg-pink-500/25 transition-colors">
-                {skill.level}
+                {skill}
               </span>
             </div>
           ))
