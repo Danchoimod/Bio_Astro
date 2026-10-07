@@ -1,4 +1,6 @@
-## Development
+## Development Rules & Constraints
+
+- **DO NOT run `npm run build` or `astro build`**. Only develop and test using the dev server or background server.
 
 When starting the dev server, use background mode:
 
