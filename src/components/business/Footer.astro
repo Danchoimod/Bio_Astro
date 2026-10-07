@@ -1,0 +1,48 @@
+---
+import type { BusinessBioConfig } from '../../data/business';
+
+interface Props {
+  businessData: BusinessBioConfig;
+}
+
+const { businessData } = Astro.props;
+---
+
+<footer class="bg-white dark:bg-black py-16 px-6 border-t border-black/5 dark:border-white/5 transition-colors">
+  <div class="max-w-[1160px] mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+    <div class="max-w-xs">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-7 h-7 rounded-md bg-[#0061ff] flex items-center justify-center font-bold text-white text-xs">
+          {businessData.name.slice(0, 2).toUpperCase()}
+        </div>
+        <span class="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-xl text-black dark:text-white">
+          {businessData.name}
+        </span>
+      </div>
+      <p class="text-xs text-[#434655] dark:text-white/60 leading-relaxed">
+        {businessData.summary}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-10 text-xs">
+      <div>
+        <h4 class="font-bold text-black dark:text-white mb-4">Điều hướng</h4>
+        <ul class="space-y-2.5">
+          <li><a class="text-[#434655] dark:text-white/60 hover:text-black dark:hover:text-white transition-colors" href="#intro">Giới thiệu</a></li>
+          <li><a class="text-[#434655] dark:text-white/60 hover:text-black dark:hover:text-white transition-colors" href="#works">Dự án</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-black dark:text-white mb-4">Mạng xã hội</h4>
+        <ul class="space-y-2.5">
+          <li><a class="text-[#434655] dark:text-white/60 hover:text-black dark:hover:text-white transition-colors" href="https://github.com/Danchoimod" target="_blank">GitHub</a></li>
+          <li><a class="text-[#434655] dark:text-white/60 hover:text-black dark:hover:text-white transition-colors" href="https://discord.com/users/608683762854658078" target="_blank">Discord</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-[1160px] mx-auto mt-12 pt-6 border-t border-black/5 dark:border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#434655] dark:text-white/60">
+    <p>© {new Date().getFullYear()} {businessData.name}. All rights reserved.</p>
+  </div>
+</footer>

@@ -1,3 +1,15 @@
+export interface BioButton {
+  label: string;
+  url: string;
+  icon?: string;
+  primary?: boolean;
+}
+
+export interface BioAudio {
+  title: string;
+  artist: string;
+}
+
 export interface BioConfig {
   name: string;
   signature: string;
@@ -15,16 +27,8 @@ export interface BioConfig {
     prefix: string;
     text: string;
   };
-  audio?: {
-    title: string;
-    artist: string;
-  };
-  buttons: {
-    label: string;
-    url: string;
-    icon?: string;
-    primary?: boolean;
-  }[];
+  audio?: BioAudio;
+  buttons: BioButton[];
 }
 
 export const bioData: BioConfig = {
@@ -36,7 +40,7 @@ export const bioData: BioConfig = {
     type: "dnd",
   },
   greeting: "Hi, I'm Mod2090.",
-  bio: "Welcome to my sweet little world! Don't look away, stay with me forever... 💕",
+  bio: "Don’t mind the spooky UI, it’s just my favorite horror game vibe. The real work is behind the scenes.💕",
   activity: {
     prefix: "PLAYING",
     text: "MiSide v0.93L (Peaceful Mode)",
@@ -47,22 +51,22 @@ export const bioData: BioConfig = {
   },
   buttons: [
     {
-      label: "Blog",
+      label: "Explore",
       url: "https://example.com/blog",
       primary: true,
     },
     {
-      label: "Cloudcode",
+      label: "LF Launcher",
       url: "https://example.com/cloudcode",
     },
     {
       label: "GitHub",
-      url: "https://github.com",
+      url: "https://github.com/Danchoimod",
       icon: "github",
     },
     {
       label: "Discord",
-      url: "https://discord.com",
+      url: "https://discord.com/users/608683762854658078",
       icon: "discord",
     },
   ],

@@ -1,0 +1,65 @@
+---
+import Icon from '../Icon.astro';
+import type { BusinessBioConfig } from '../../data/business';
+
+interface Props {
+  businessData: BusinessBioConfig;
+}
+
+const { businessData } = Astro.props;
+---
+
+<section id="intro" class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 max-w-[1160px] mx-auto">
+  <div class="max-w-4xl">
+    <!-- Availability Badge -->
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-6">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span>{businessData.availability}</span>
+    </div>
+
+    <h1 class="font-['Plus_Jakarta_Sans',sans-serif] font-extrabold text-3xl sm:text-5xl md:text-6xl mb-6 md:mb-8 leading-[1.15] text-black dark:text-white tracking-tight">
+      Hi, I'm <span class="bg-gradient-to-r from-[#0061ff] to-[#60a5fa] bg-clip-text text-transparent">{businessData.name}</span>.
+    </h1>
+
+    <p class="font-['Plus_Jakarta_Sans',sans-serif] text-lg sm:text-xl md:text-2xl font-semibold text-[#0061ff] dark:text-[#cad3ff] mb-4">
+      {businessData.headline}
+    </p>
+
+    <p class="text-base sm:text-lg text-[#434655] dark:text-white/70 max-w-2xl mb-8 leading-relaxed font-normal">
+      {businessData.summary}
+    </p>
+
+    <div class="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400 mb-8">
+      <span>📍</span>
+      <span>{businessData.location}</span>
+    </div>
+
+    <!-- Social Buttons -->
+    <div class="flex flex-wrap items-center gap-3">
+      {businessData.socials.map((social) => (
+        <a
+          href={social.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={social.name}
+          class="px-4 py-2.5 rounded-lg bg-[#f7f9fa] dark:bg-white/5 hover:bg-black/5 dark:hover:bg-white/10 border border-black/5 dark:border-white/10 flex items-center gap-2 text-sm font-semibold text-[#1a1b23] dark:text-white transition shadow-sm"
+        >
+          <Icon name={social.icon} className="w-4 h-4" />
+          <span>{social.name}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Tech Tags Bar (Odrixon Style) -->
+  <div class="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-black/10 dark:border-white/10 pt-8 md:pt-12">
+    {businessData.tags.map((tag, idx) => (
+      <div class="p-5 rounded-xl bg-[#f7f9fa] dark:bg-white/[0.03] border border-black/5 dark:border-white/10">
+        <span class="text-xs font-mono font-bold text-[#0061ff] uppercase">Trụ cột 0{idx + 1}</span>
+        <p class="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-base text-black dark:text-white mt-1">
+          {tag}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>

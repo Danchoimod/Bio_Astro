@@ -1,477 +1,53 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Icon from '../components/Icon.astro';
-import { bioData } from '../data/bio';
-import bgImage from '../assets/img/background.png';
-import avatarImage from '../assets/img/avatar.png';
-import songAudio from '../assets/audio/song1.mp3';
+import Navbar from '../components/business/Navbar.astro';
+import Hero from '../components/business/Hero.astro';
+import Works from '../components/business/Works.astro';
+import Skills from '../components/business/Skills.astro';
+import Experience from '../components/business/Experience.astro';
+import Footer from '../components/business/Footer.astro';
+import { businessData } from '../data/business';
 ---
 
-<Layout title={`${bioData.name} — Bio`} description={bioData.bio}>
-  <!-- Background Image with Overlay -->
-  <div class="fixed inset-0 -z-10 bg-black">
-    <img
-      src={bgImage.src}
-      alt="Background"
-      class="w-full h-full object-cover object-center opacity-85 scale-100"
-    />
-    <!-- Atmospheric gradient overlay for contrast -->
-    <div class="absolute inset-0 bg-gradient-to-t from-[#140219]/90 via-black/60 to-black/80"></div>
-  </div>
+<Layout title={`${businessData.name} — ${businessData.headline}`} description={businessData.summary}>
+  <div class="min-h-screen bg-white dark:bg-black text-[#1a1b23] dark:text-white transition-colors duration-300 relative selection:bg-[#0061ff] selection:text-white font-['Be_Vietnam_Pro',sans-serif]">
+    <!-- Navbar -->
+    <Navbar businessData={businessData} />
 
-  <div class="min-h-screen flex flex-col justify-between p-4 sm:p-8 md:p-10 relative">
-    <!-- Top Navigation Header -->
-    <header class="w-full max-w-6xl mx-auto flex items-center justify-between z-20">
-      <!-- Left: Mini Avatar & Signature -->
-      <a href="/" class="flex items-center gap-3 group">
-        <div class="w-9 h-9 rounded-full overflow-hidden border border-pink-400/30 p-0.5 bg-black/40 backdrop-blur-md transition group-hover:scale-105 group-hover:border-pink-400/60">
-          <img
-            src={avatarImage.src}
-            alt={bioData.name}
-            class="w-full h-full object-cover rounded-full"
-          />
-        </div>
-        <span class="font-['Caveat',cursive] text-2xl text-pink-200/90 tracking-wide transition group-hover:text-pink-100">
-          {bioData.signature}
-        </span>
-      </a>
+    <!-- Hero Section -->
+    <Hero businessData={businessData} />
 
-      <!-- Right: Menu button (Hamburger 3 lines) -->
-      <button
-        type="button"
-        id="menu-btn"
-        aria-label="Open Menu"
-        class="w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-pink-400/50 transition cursor-pointer backdrop-blur-md shadow-lg shadow-black/40 group"
-      >
-        <span class="w-4 h-0.5 bg-slate-200 group-hover:bg-white transition-colors rounded-full"></span>
-        <span class="w-4 h-0.5 bg-slate-200 group-hover:bg-white transition-colors rounded-full"></span>
-        <span class="w-4 h-0.5 bg-slate-200 group-hover:bg-white transition-colors rounded-full"></span>
-      </button>
-    </header>
+    <!-- Works & Projects Section -->
+    <Works links={businessData.links} />
 
-    <!-- Main Grid Content: Action Buttons on the Left & Profile Card on the Right -->
-    <main class="w-full max-w-6xl mx-auto my-auto py-8 z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      
-      <!-- Left Column: Vertical Action Buttons / Game Menu -->
-      <div class="lg:col-span-5 xl:col-span-4 flex flex-col items-start space-y-3 w-full">
-        <!-- Section Header -->
-        <div class="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-pink-400 uppercase mb-2 px-1">
-          <span>❖ NAVIGATION</span>
-        </div>
+    <!-- Skills Section -->
+    <Skills skills={businessData.skills} />
 
-        <div class="flex flex-col items-start gap-3 w-full">
-          {bioData.buttons.map((btn) => (
-            <a
-              href={btn.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={`w-full flex items-center justify-between px-5 py-3.5 rounded-2xl text-xs sm:text-sm font-extrabold tracking-wide uppercase transition-all duration-200 group ${
-                btn.primary
-                  ? 'bg-gradient-to-r from-pink-500 to-rose-400 hover:from-pink-400 hover:to-rose-300 text-white shadow-lg shadow-pink-500/30 hover:translate-x-2'
-                  : 'bg-[#1a0422]/90 hover:bg-[#2e073c] text-pink-100 hover:text-white border border-pink-500/25 hover:border-pink-400/50 hover:translate-x-2 shadow-lg shadow-black/60 backdrop-blur-xl'
-              }`}
-            >
-              <div class="flex items-center gap-3">
-                <span class={btn.primary ? 'text-white drop-shadow-sm' : 'text-pink-400 group-hover:text-white transition-colors'}>
-                  {btn.icon ? <Icon name={btn.icon} className="w-4 h-4" /> : '❖'}
-                </span>
-                <span class={btn.primary ? 'text-white drop-shadow-sm' : ''}>{btn.label}</span>
-              </div>
-              <span class={`text-xs opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-0 group-hover:translate-x-1 duration-200 ${btn.primary ? 'text-white' : ''}`}>
-                ➔
-              </span>
-            </a>
-          ))}
-        </div>
-      </div>
+    <!-- Experience Section -->
+    <Experience experience={businessData.experience} />
 
-      <!-- Right Column: Main Profile Card -->
-      <div class="lg:col-span-7 xl:col-span-8 flex flex-col w-full">
-        <!-- Breadcrumb / Category Tags (Optional) -->
-        {bioData.tags && bioData.tags.length > 0 && (
-          <div class="flex items-center gap-2 text-[11px] sm:text-xs font-mono font-bold tracking-widest text-pink-400 uppercase mb-3 px-1">
-            {bioData.tags.map((tag, idx) => (
-              <>
-                <span class="hover:text-pink-300 transition-colors cursor-default">{tag}</span>
-                {idx < bioData.tags.length - 1 && <span class="text-white/30">/</span>}
-              </>
-            ))}
-          </div>
-        )}
-
-        <!-- Main Profile Card -->
-        <div class="rounded-3xl bg-[#130317]/85 backdrop-blur-2xl border border-pink-500/20 shadow-2xl overflow-hidden shadow-black/80 w-full">
-          <!-- Card Top Banner Header with subtle dark mesh / gradient -->
-          <div class="h-32 sm:h-40 w-full bg-gradient-to-tr from-[#1b0321] via-[#2a0833] to-[#3a0947]/70 border-b border-pink-500/15 relative overflow-hidden">
-            <div class="absolute inset-0 bg-radial-[at_top_right] from-pink-500/15 via-transparent to-transparent"></div>
-          </div>
-
-          <!-- Card Body -->
-          <div class="p-6 sm:p-8 -mt-16 sm:-mt-20 relative">
-            <!-- Top Row inside Card: Badge + Status Dot -->
-            <div class="flex items-center justify-between text-[11px] font-mono tracking-wider mb-5">
-              <span class="text-pink-300/60 uppercase font-semibold">
-                {bioData.badge}
-              </span>
-
-              <div class="flex items-center gap-2">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500 shadow-[0_0_8px_rgba(236,72,153,0.9)]"></span>
-                </span>
-                <span class="text-pink-400 uppercase font-bold text-[10px] sm:text-[11px] tracking-widest">
-                  {bioData.status.label}
-                </span>
-              </div>
-            </div>
-
-            <!-- Avatar & Greeting Row -->
-            <div class="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6 mb-4">
-              <!-- Big Avatar with rounded square border & ring glow -->
-              <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden p-0.5 bg-gradient-to-b from-pink-500/30 to-pink-500/10 border border-pink-400/30 shadow-xl flex-shrink-0 group">
-                <img
-                  src={avatarImage.src}
-                  alt={bioData.name}
-                  class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-
-              <!-- Greeting headline with Typewriter & Blinking Long Underscore -->
-              <div class="flex-1 min-w-0">
-                <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white flex items-baseline gap-1 font-['Fredoka',sans-serif]">
-                  <span id="typewriter-text" data-text={bioData.greeting}></span>
-                  <span id="typewriter-cursor" class="inline-block w-6 sm:w-10 h-1.5 sm:h-2 bg-pink-400 ml-1 rounded-sm shadow-[0_0_8px_rgba(244,114,182,0.9)] cursor-blink"></span>
-                </h1>
-              </div>
-            </div>
-
-            <!-- Description / Bio text -->
-            <p class="text-sm sm:text-base text-pink-100/90 leading-relaxed max-w-xl font-medium mt-2">
-              {bioData.bio}
-            </p>
-
-            <!-- Status / Activity banner -->
-            <div class="mt-4 flex items-center gap-2 text-xs sm:text-sm font-mono text-pink-300/80">
-              <span class="text-pink-400 font-black uppercase tracking-wider text-[11px] sm:text-xs">
-                {bioData.activity.prefix}
-              </span>
-              <span class="text-pink-100 truncate font-semibold">
-                {bioData.activity.text}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- Bottom Left Fixed Floating Control with Music Player Popup -->
-    <div class="fixed bottom-6 left-6 z-50">
-      <!-- Music Popup Modal / Card -->
-      <div
-        id="music-popup"
-        class="absolute bottom-16 left-0 w-80 bg-[#16031b]/95 backdrop-blur-2xl border border-pink-500/30 rounded-2xl p-4 shadow-2xl shadow-black/80 transition-all duration-300 origin-bottom-left opacity-0 scale-95 pointer-events-none"
-      >
-        <!-- Header of Popup -->
-        <div class="flex items-center justify-between pb-3 border-b border-pink-500/20 mb-3">
-          <div class="flex items-center gap-2">
-            <span class="text-[11px] font-mono uppercase tracking-widest text-pink-300 font-bold">
-              Audio Player
-            </span>
-          </div>
-          <button
-            id="close-music-popup"
-            type="button"
-            class="text-pink-300 hover:text-white p-1 rounded-lg hover:bg-pink-500/10 transition cursor-pointer"
-            aria-label="Close"
-          >
-            <Icon name="close" className="w-4 h-4" />
-          </button>
-        </div>
-
-        <!-- Song Details -->
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-pink-500/20 to-rose-500/20 border border-pink-500/30 flex items-center justify-center flex-shrink-0 text-pink-400">
-            <Icon name="volume" className="w-6 h-6" />
-          </div>
-          <div class="min-w-0 flex-1">
-            <h4 id="song-title" class="text-sm font-bold text-white truncate">
-              {bioData.audio?.title || 'Theme Song'}
-            </h4>
-            <p id="song-artist" class="text-xs text-pink-300/80 truncate mt-0.5">
-              {bioData.audio?.artist || bioData.name}
-            </p>
-          </div>
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="space-y-1.5 mb-4">
-          <div
-            id="progress-container"
-            class="w-full h-1.5 bg-black/40 rounded-full cursor-pointer overflow-hidden relative border border-pink-500/20"
-          >
-            <div
-              id="progress-bar"
-              class="h-full bg-gradient-to-r from-pink-500 via-rose-400 to-pink-300 w-0 transition-all duration-100"
-            ></div>
-          </div>
-          <div class="flex justify-between text-[10px] font-mono text-pink-300/80">
-            <span id="current-time">0:00</span>
-            <span id="total-duration">--:--</span>
-          </div>
-        </div>
-
-        <!-- Controls: Play/Pause & Volume -->
-        <div class="flex items-center justify-between gap-3 pt-1">
-          <!-- Play / Pause Button -->
-          <button
-            id="play-pause-btn"
-            type="button"
-            class="flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-xl bg-pink-500/25 hover:bg-pink-500/35 text-pink-200 hover:text-white border border-pink-500/40 font-bold text-xs transition cursor-pointer"
-          >
-            <span id="play-icon">
-              <Icon name="play" className="w-4 h-4" />
-            </span>
-            <span id="pause-icon" class="hidden">
-              <Icon name="pause" className="w-4 h-4" />
-            </span>
-            <span id="play-text">Play Audio</span>
-          </button>
-
-          <!-- Mute / Unmute Button -->
-          <button
-            id="volume-toggle-btn"
-            type="button"
-            class="w-9 h-9 flex items-center justify-center rounded-xl bg-pink-950/40 hover:bg-pink-900/60 border border-pink-500/30 text-pink-200 hover:text-white transition cursor-pointer"
-            aria-label="Toggle Volume"
-          >
-            <span id="vol-on-icon">
-              <Icon name="volume" className="w-4 h-4" />
-            </span>
-            <span id="vol-mute-icon" class="hidden text-pink-400">
-              <Icon name="volume-x" className="w-4 h-4" />
-            </span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Trigger Button for Sound with Expanding Explosion Pulse Rings -->
-      <div class="relative flex items-center justify-center">
-        <!-- Exploding Pulse Rings (shown when playing) -->
-        <div id="pulse-rings" class="hidden absolute inset-0 pointer-events-none flex items-center justify-center">
-          <span class="absolute w-12 h-12 rounded-full border border-pink-500/70 bg-pink-500/20 pulse-ring-1"></span>
-          <span class="absolute w-12 h-12 rounded-full border border-rose-400/60 bg-rose-400/15 pulse-ring-2"></span>
-          <span class="absolute w-12 h-12 rounded-full border border-purple-400/50 bg-purple-400/10 pulse-ring-3"></span>
-        </div>
-
-        <button
-          type="button"
-          id="sound-btn"
-          aria-label="Toggle Sound"
-          class="w-12 h-12 rounded-full bg-[#1b0422]/90 hover:bg-[#2b0735] border border-pink-500/30 flex items-center justify-center text-pink-300 hover:text-white transition shadow-xl shadow-black/60 hover:scale-105 cursor-pointer relative z-10 group backdrop-blur-md"
-        >
-          <!-- Disc icon spinning slowly when playing -->
-          <span id="sound-icon-container" class="transition-transform duration-500 flex items-center justify-center">
-            <Icon name="music" className="w-5 h-5" />
-          </span>
-        </button>
-      </div>
-
-      <!-- Audio Element with autoplay attribute -->
-      <audio id="bg-audio" src={songAudio} autoplay preload="auto" loop playsinline></audio>
-    </div>
+    <!-- Footer -->
+    <Footer businessData={businessData} />
   </div>
 </Layout>
 
 <script>
-  // Elements
-  const soundBtn = document.getElementById('sound-btn');
-  const soundIconContainer = document.getElementById('sound-icon-container');
-  const pulseRings = document.getElementById('pulse-rings');
-  const musicPopup = document.getElementById('music-popup');
-  const closePopupBtn = document.getElementById('close-music-popup');
-  const audio = document.getElementById('bg-audio') as HTMLAudioElement;
-  const playPauseBtn = document.getElementById('play-pause-btn');
-  const playIcon = document.getElementById('play-icon');
-  const pauseIcon = document.getElementById('pause-icon');
-  const playText = document.getElementById('play-text');
-  const volumeToggleBtn = document.getElementById('volume-toggle-btn');
-  const volOnIcon = document.getElementById('vol-on-icon');
-  const volMuteIcon = document.getElementById('vol-mute-icon');
-  const progressBar = document.getElementById('progress-bar');
-  const progressContainer = document.getElementById('progress-container');
-  const currentTimeEl = document.getElementById('current-time');
-  const totalDurationEl = document.getElementById('total-duration');
-  const playingIndicator = document.getElementById('playing-indicator');
+  // Dark/Light Theme Toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  
+  if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
 
-  let isPopupOpen = false;
-
-  // Toggle Popup
-  function togglePopup() {
-    isPopupOpen = !isPopupOpen;
-    if (isPopupOpen) {
-      musicPopup?.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
-      musicPopup?.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+  themeToggle?.addEventListener('click', () => {
+    if (document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('color-theme', 'light');
     } else {
-      musicPopup?.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-      musicPopup?.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
-    }
-  }
-
-  soundBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    togglePopup();
-  });
-
-  closePopupBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    togglePopup();
-  });
-
-  // Close popup if clicked outside
-  document.addEventListener('click', (e) => {
-    if (isPopupOpen && musicPopup && !musicPopup.contains(e.target as Node) && !soundBtn?.contains(e.target as Node)) {
-      togglePopup();
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('color-theme', 'dark');
     }
   });
-
-  // Format Time Helper
-  function formatTime(seconds: number): string {
-    if (isNaN(seconds)) return '0:00';
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  }
-
-  // Update Play State UI
-  function updatePlayState(isPlaying: boolean) {
-    if (isPlaying) {
-      playIcon?.classList.add('hidden');
-      pauseIcon?.classList.remove('hidden');
-      if (playText) playText.textContent = 'Pause';
-      playingIndicator?.classList.remove('hidden');
-      pulseRings?.classList.remove('hidden');
-      soundIconContainer?.classList.add('spin-slow');
-    } else {
-      playIcon?.classList.remove('hidden');
-      pauseIcon?.classList.add('hidden');
-      if (playText) playText.textContent = 'Play Audio';
-      playingIndicator?.classList.add('hidden');
-      pulseRings?.classList.add('hidden');
-      soundIconContainer?.classList.remove('spin-slow');
-    }
-  }
-
-  // Play / Pause Logic
-  playPauseBtn?.addEventListener('click', () => {
-    if (audio.paused) {
-      audio.play().then(() => {
-        updatePlayState(true);
-      }).catch((err) => {
-        console.error('Playback error:', err);
-      });
-    } else {
-      audio.pause();
-      updatePlayState(false);
-    }
-  });
-
-  // Auto-play on load or first gesture
-  function tryAutoPlay() {
-    if (!audio) return;
-    audio.play()
-      .then(() => {
-        updatePlayState(true);
-        removeAutoPlayListeners();
-      })
-      .catch(() => {
-        // Browser requires user gesture before playing audio
-      });
-  }
-
-  function handleFirstInteraction() {
-    if (audio && audio.paused) {
-      tryAutoPlay();
-    }
-  }
-
-  const events = ['click', 'touchstart', 'keydown', 'pointerdown', 'mousemove', 'scroll', 'mouseenter', 'mouseover'];
-
-  function removeAutoPlayListeners() {
-    events.forEach((evt) => {
-      window.removeEventListener(evt, handleFirstInteraction);
-      document.removeEventListener(evt, handleFirstInteraction);
-    });
-  }
-
-  events.forEach((evt) => {
-    window.addEventListener(evt, handleFirstInteraction, { once: true, passive: true });
-    document.addEventListener(evt, handleFirstInteraction, { once: true, passive: true });
-  });
-
-  // Direct immediate execution
-  tryAutoPlay();
-  window.addEventListener('DOMContentLoaded', tryAutoPlay);
-  window.addEventListener('load', tryAutoPlay);
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && audio.paused) {
-      tryAutoPlay();
-    }
-  });
-
-  // Audio Time Update
-  audio.addEventListener('timeupdate', () => {
-    if (audio.duration) {
-      const percentage = (audio.currentTime / audio.duration) * 100;
-      if (progressBar) progressBar.style.width = `${percentage}%`;
-      if (currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
-    }
-  });
-
-  // Loaded metadata for duration
-  audio.addEventListener('loadedmetadata', () => {
-    if (totalDurationEl) totalDurationEl.textContent = formatTime(audio.duration);
-  });
-
-  // Seek bar click
-  progressContainer?.addEventListener('click', (e) => {
-    if (!audio.duration) return;
-    const rect = progressContainer.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const width = rect.width;
-    const newTime = (clickX / width) * audio.duration;
-    audio.currentTime = newTime;
-  });
-
-  // Mute / Unmute
-  volumeToggleBtn?.addEventListener('click', () => {
-    audio.muted = !audio.muted;
-    if (audio.muted) {
-      volOnIcon?.classList.add('hidden');
-      volMuteIcon?.classList.remove('hidden');
-    } else {
-      volOnIcon?.classList.remove('hidden');
-      volMuteIcon?.classList.add('hidden');
-    }
-  });
-
-  // Typewriter Animation for Greeting
-  const typewriterEl = document.getElementById('typewriter-text');
-  if (typewriterEl) {
-    const fullText = typewriterEl.getAttribute('data-text') || "Hi, I'm Mod2090.";
-    let charIndex = 0;
-    typewriterEl.textContent = '';
-
-    function typeChar() {
-      if (charIndex < fullText.length) {
-        typewriterEl.textContent += fullText.charAt(charIndex);
-        charIndex++;
-        // Natural human-like random typing delay
-        const delay = Math.floor(Math.random() * 50) + 75;
-        setTimeout(typeChar, delay);
-      }
-    }
-
-    // Start typing shortly after page load
-    setTimeout(typeChar, 300);
-  }
 </script>

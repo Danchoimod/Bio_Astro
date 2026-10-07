@@ -1,0 +1,40 @@
+---
+import type { BusinessBioConfig } from '../../data/business';
+
+interface Props {
+  experience: BusinessBioConfig['experience'];
+}
+
+const { experience } = Astro.props;
+---
+
+<section id="experience" class="py-16 md:py-24 px-6 border-t border-black/5 dark:border-white/5 max-w-[1160px] mx-auto">
+  <div class="space-y-8">
+    <div>
+      <h2 class="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-2xl md:text-4xl text-black dark:text-white mb-3">
+        Kinh nghiệm làm việc
+      </h2>
+      <p class="text-sm md:text-base text-[#434655] dark:text-white/60">
+        Hành trình và các cột mốc thực chiến trong ngành công nghệ.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      {experience.map((exp) => (
+        <div class="p-6 md:p-8 rounded-2xl bg-[#f7f9fa] dark:bg-white/[0.03] border border-black/10 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1 max-w-2xl">
+            <h3 class="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-base sm:text-lg text-black dark:text-white">
+              {exp.role} <span class="text-[#0061ff] font-semibold">@ {exp.company}</span>
+            </h3>
+            <p class="text-xs sm:text-sm text-[#434655] dark:text-white/60 leading-relaxed">
+              {exp.description}
+            </p>
+          </div>
+          <span class="text-xs font-mono font-bold text-[#434655] dark:text-white/60 px-3 py-1.5 rounded-lg bg-white dark:bg-black border border-black/5 dark:border-white/10 self-start sm:self-center shrink-0">
+            {exp.period}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

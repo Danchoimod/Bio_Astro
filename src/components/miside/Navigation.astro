@@ -1,0 +1,42 @@
+---
+import Icon from '../Icon.astro';
+import type { BioButton } from '../../data/bio';
+
+interface Props {
+  buttons: BioButton[];
+}
+
+const { buttons } = Astro.props;
+---
+
+<div class="lg:col-span-5 xl:col-span-4 flex flex-col items-start space-y-3 w-full">
+  <!-- Section Header -->
+  <div class="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-pink-400 uppercase mb-2 px-1">
+    <span>❖ NAVIGATION</span>
+  </div>
+
+  <div class="flex flex-col items-start gap-3 w-full">
+    {buttons.map((btn) => (
+      <a
+        href={btn.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class={`w-full flex items-center justify-between px-5 py-3.5 rounded-2xl text-xs sm:text-sm font-extrabold tracking-wide uppercase transition-all duration-200 group ${
+          btn.primary
+            ? 'bg-gradient-to-r from-pink-500 to-rose-400 hover:from-pink-400 hover:to-rose-300 text-white shadow-lg shadow-pink-500/30 hover:translate-x-2'
+            : 'bg-[#1a0422]/90 hover:bg-[#2e073c] text-pink-100 hover:text-white border border-pink-500/25 hover:border-pink-400/50 hover:translate-x-2 shadow-lg shadow-black/60 backdrop-blur-xl'
+        }`}
+      >
+        <div class="flex items-center gap-3">
+          <span class={btn.primary ? 'text-white drop-shadow-sm' : 'text-pink-400 group-hover:text-white transition-colors'}>
+            {btn.icon ? <Icon name={btn.icon} className="w-4 h-4" /> : '❖'}
+          </span>
+          <span class={btn.primary ? 'text-white drop-shadow-sm' : ''}>{btn.label}</span>
+        </div>
+        <span class={`text-xs opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-0 group-hover:translate-x-1 duration-200 ${btn.primary ? 'text-white' : ''}`}>
+          ➔
+        </span>
+      </a>
+    ))}
+  </div>
+</div>
