@@ -9,10 +9,20 @@
           "value": "dev.mod2090.io.vn"
         }
       ],
+      "destination": "/miside/index.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "dev.mod2090.io.vn"
+        }
+      ],
       "destination": "/miside"
     },
     {
-      "source": "/miside",
+      "source": "/:match*",
       "has": [
         {
           "type": "host",

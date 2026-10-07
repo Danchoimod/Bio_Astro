@@ -24,6 +24,12 @@ const { title, description = "Personal Bio" } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@600;700&family=Fredoka:wght@600;700;800&family=Nunito:wght@700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script is:inline>
+      // Immediate redirect before render if accessed via dev subdomain on root path
+      if (window.location.hostname === 'dev.mod2090.io.vn' && window.location.pathname === '/') {
+        window.location.replace('/miside');
+      }
+    </script>
   </head>
   <body class="h-full antialiased selection:bg-blue-600 selection:text-white relative overflow-x-hidden transition-colors duration-300">
     <slot />
