@@ -71,9 +71,9 @@ export const bioData: BioConfig = {
       icon: "discord",
     },
     {
-      label: "youtube",
+      label: "YouTube",
       url: "https://www.youtube.com/@danchoimod",
-      icon: "play",
+      icon: "youtube",
     },
   ],
   sidebarButtons: [

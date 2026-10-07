@@ -1,0 +1,24 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "dev.mod2090.io.vn"
+        }
+      ],
+      "destination": "/miside"
+    },
+    {
+      "source": "/:path((?!_astro|favicon|img|audio).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "dev.mod2090.io.vn"
+        }
+      ],
+      "destination": "/miside"
+    }
+  ]
+}
