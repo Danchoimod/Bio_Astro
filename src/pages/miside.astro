@@ -209,4 +209,14 @@ import songAudio from '../assets/audio/song1.mp3';
 
     setTimeout(typeChar, 300);
   }
+
+  // Switch Theme to Business Profile with Confirmation
+  const switchThemeBtn = document.getElementById('switch-theme-btn');
+  switchThemeBtn?.addEventListener('click', () => {
+    const confirmed = window.confirm("Are you sure you want to switch to the Business theme?");
+    if (confirmed) {
+      window.location.href = "/";
+    }
+  });
 </script>
+

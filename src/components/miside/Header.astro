@@ -29,13 +29,14 @@ const { signature, avatarSrc, name } = Astro.props;
   <!-- Right: Action buttons (Profile Switcher & Menu) -->
   <div class="flex items-center gap-2.5 relative">
     <!-- Switch Theme Button with requested style -->
-    <a
-      href="/"
+    <button
+      id="switch-theme-btn"
+      type="button"
       title="Switch Theme"
       class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-pink-400/50 text-pink-300 hover:text-white transition cursor-pointer backdrop-blur-md shadow-lg shadow-black/40 group relative"
     >
       <Icon name="palette" className="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
-    </a>
+    </button>
 
     <!-- Menu button (Hamburger 3 lines) -->
     <button
