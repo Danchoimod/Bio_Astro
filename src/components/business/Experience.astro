@@ -3,38 +3,47 @@ import type { BusinessBioConfig } from '../../data/business';
 
 interface Props {
   experience: BusinessBioConfig['experience'];
+  philosophy: BusinessBioConfig['philosophy'];
 }
 
-const { experience } = Astro.props;
+const { experience, philosophy } = Astro.props;
 ---
 
-<section id="experience" class="py-16 md:py-24 px-6 border-t border-black/5 dark:border-white/5 max-w-[1160px] mx-auto">
-  <div class="space-y-8">
-    <div>
-      <h2 class="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-2xl md:text-4xl text-black dark:text-white mb-3">
-        Kinh nghiệm làm việc
-      </h2>
-      <p class="text-sm md:text-base text-[#434655] dark:text-white/60">
-        Hành trình và các cột mốc thực chiến trong ngành công nghệ.
-      </p>
-    </div>
+<!-- Experience Section -->
+<section class="mb-20">
+  <h2 class="text-2xl sm:text-3xl font-bold text-[#0f172a] dark:text-white mb-6 tracking-tight">
+    Experience
+  </h2>
 
-    <div class="space-y-4">
-      {experience.map((exp) => (
-        <div class="p-6 md:p-8 rounded-2xl bg-[#f7f9fa] dark:bg-white/[0.03] border border-black/10 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div class="space-y-1 max-w-2xl">
-            <h3 class="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-base sm:text-lg text-black dark:text-white">
-              {exp.role} <span class="text-[#0061ff] font-semibold">@ {exp.company}</span>
-            </h3>
-            <p class="text-xs sm:text-sm text-[#434655] dark:text-white/60 leading-relaxed">
-              {exp.description}
-            </p>
-          </div>
-          <span class="text-xs font-mono font-bold text-[#434655] dark:text-white/60 px-3 py-1.5 rounded-lg bg-white dark:bg-black border border-black/5 dark:border-white/10 self-start sm:self-center shrink-0">
-            {exp.period}
-          </span>
-        </div>
-      ))}
-    </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    {experience.map((exp) => (
+      <div class="bg-white dark:bg-slate-900 border border-[#e2e8f0] dark:border-slate-800 rounded-3xl p-6 sm:p-7 shadow-xs">
+        <h3 class="font-bold text-lg text-[#0f172a] dark:text-white mb-1">
+          {exp.role}
+        </h3>
+        <p class="text-sm font-semibold text-[#00288E] dark:text-blue-400 mb-3">
+          {exp.company}
+        </p>
+        <p class="text-sm text-[#64748b] dark:text-slate-400 leading-relaxed">
+          {exp.description}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- Development Philosophy Section -->
+<section class="mb-20">
+  <h2 class="text-2xl sm:text-3xl font-bold text-[#0f172a] dark:text-white mb-6 tracking-tight">
+    Development Philosophy
+  </h2>
+
+  <div class="bg-white dark:bg-slate-900 border border-[#e2e8f0] dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xs space-y-3">
+    <h3 class="font-bold text-lg sm:text-xl text-[#00288E] dark:text-blue-400">
+      {philosophy.title}
+    </h3>
+    <p class="text-base text-[#64748b] dark:text-slate-400 leading-relaxed">
+      {philosophy.description}
+    </p>
   </div>
 </section>

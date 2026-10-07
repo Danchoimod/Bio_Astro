@@ -1,114 +1,82 @@
 export interface BusinessBioConfig {
   name: string;
   headline: string;
-  avatar: string;
+  badge: string;
   summary: string;
+  about: string;
   location: string;
-  availability: string;
-  tags: string[];
-  socials: {
-    name: string;
-    icon: string;
-    url: string;
-  }[];
-  links: {
+  github: string;
+  philosophy: {
     title: string;
     description: string;
-    url: string;
-    icon: string;
-    featured?: boolean;
-    category: string;
-  }[];
+  };
+  featuredProject: {
+    title: string;
+    tag: string;
+    description: string;
+    stats: {
+      value: string;
+      label: string;
+    }[];
+  };
   skills: string[];
   experience: {
     role: string;
     company: string;
-    period: string;
+    period?: string;
     description: string;
   }[];
 }
 
 export const businessData: BusinessBioConfig = {
-  name: "Mod2090",
-  headline: "Software Engineer & Security Researcher",
-  avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop",
-  summary: "Senior Software Engineer specializing in scalable fullstack web systems, cloud infrastructure, and practical cybersecurity research.",
-  location: "Ho Chi Minh City, Vietnam",
-  availability: "Available for Consulting & Projects",
-  tags: ["Fullstack Engineer", "Cybersecurity", "Cloud Architecture"],
-  socials: [
-    {
-      name: "GitHub",
-      icon: "github",
-      url: "https://github.com/Danchoimod",
-    },
-    {
-      name: "Discord",
-      icon: "discord",
-      url: "https://discord.com/users/608683762854658078",
-    },
-    {
-      name: "Email",
-      icon: "volume-x", // email icon fallback
-      url: "mailto:contact@danchoimod.dev",
-    },
-  ],
-  links: [
-    {
-      title: "Explore / Projects Showcase",
-      description: "Comprehensive portfolio of enterprise systems, developer tools & open-source libraries",
-      url: "https://example.com/blog",
-      icon: "play",
-      featured: true,
-      category: "Featured Work",
-    },
-    {
-      title: "LF Launcher",
-      description: "High-performance desktop & cloud launcher utility built for fast workflows",
-      url: "https://example.com/cloudcode",
-      icon: "disc",
-      featured: true,
-      category: "Featured Work",
-    },
-    {
-      title: "GitHub Repositories",
-      description: "Explore source code, security research tools, and open-source contributions",
-      url: "https://github.com/Danchoimod",
-      icon: "github",
-      featured: false,
-      category: "Open Source & Code",
-    },
-    {
-      title: "Discord Community",
-      description: "Connect directly for technical discussions, collaboration and support",
-      url: "https://discord.com/users/608683762854658078",
-      icon: "discord",
-      featured: false,
-      category: "Community & Contact",
-    },
-  ],
+  name: "Phu Pham",
+  headline: "Backend Developer",
+  badge: "Backend Developer · Product Builder",
+  summary: "Backend Developer focused on building real-world products, system architecture, and scalable backend services. I enjoy transforming business problems into production-ready software.",
+  about: "Software Development student at FPT Polytechnic with a strong interest in Backend Development, System Design, and Product Development. Instead of building tutorial projects, I prefer creating software that solves real business problems and can operate in production for years.",
+  location: "Can Tho, Vietnam",
+  github: "github.com/Danchoimod",
+  philosophy: {
+    title: "Problem → UX → Business → System Design → Code",
+    description: "Technology is a tool. The real goal is solving business problems through maintainable and reliable software systems.",
+  },
+  featuredProject: {
+    title: "YadoViet",
+    tag: "Production SaaS",
+    description: "Rental Management Platform designed for landlords and boarding-house operators. The system helps manage rooms, tenants, invoices, contracts, expenses, and residence declarations.",
+    stats: [
+      { value: "140+", label: "Active Tenants" },
+      { value: "1", label: "Production Property" },
+      { value: "100%", label: "Monthly Usage" },
+      { value: "3+", label: "Years Development" },
+    ],
+  },
   skills: [
-    "TypeScript / Node.js",
-    "Go / Python",
-    "React / Next.js / Astro",
-    "Tailwind CSS",
-    "PostgreSQL / Redis",
-    "Docker / Kubernetes",
-    "Reverse Engineering",
-    "Cloud Architecture",
+    "Node.js",
+    "TypeScript",
+    "NestJS",
+    "ExpressJS",
+    "FastAPI",
+    "REST API",
+    "PostgreSQL",
+    "MySQL",
+    "Prisma ORM",
+    "DDD",
+    "Modular Monolith",
+    "System Design",
+    "Docker",
+    "Linux",
   ],
   experience: [
     {
-      role: "Lead Systems Architect",
-      company: "Tech Solutions Inc.",
-      period: "2023 — Present",
-      description: "Architecting enterprise cloud services, microservices infrastructure, and security automation pipelines.",
+      role: "Backend Developer Intern",
+      company: "The Improbability Company",
+      description: "Worked with FastAPI, Google Cloud Platform, backend architecture improvements, API development and cross-team collaboration.",
     },
     {
-      role: "Senior Fullstack Developer",
-      company: "Digital Studio",
-      period: "2021 — 2023",
-      description: "Built scalable web applications, designed real-time distributed platforms, and mentored frontend/backend teams.",
+      role: "Fullstack Developer",
+      company: "YadoViet",
+      description: "Designed architecture, database schema, backend APIs, frontend UX and production deployment.",
     },
   ],
 };

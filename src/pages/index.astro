@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/business/Navbar.astro';
 import Hero from '../components/business/Hero.astro';
 import Works from '../components/business/Works.astro';
 import Skills from '../components/business/Skills.astro';
@@ -9,25 +8,29 @@ import Footer from '../components/business/Footer.astro';
 import { businessData } from '../data/business';
 ---
 
-<Layout title={`${businessData.name} — ${businessData.headline}`} description={businessData.summary}>
-  <div class="min-h-screen bg-white dark:bg-black text-[#1a1b23] dark:text-white transition-colors duration-300 relative selection:bg-[#0061ff] selection:text-white font-['Be_Vietnam_Pro',sans-serif]">
-    <!-- Navbar -->
-    <Navbar businessData={businessData} />
+<Layout title={`${businessData.name} | ${businessData.headline}`} description={businessData.summary}>
+  <div class="min-h-screen bg-[#f8fafc] dark:bg-[#0b0f19] text-[#0f172a] dark:text-slate-100 font-['Inter',sans-serif] transition-colors duration-300">
+    <div class="max-w-[1100px] mx-auto px-6">
+      
+      <!-- Hero / Header -->
+      <Hero businessData={businessData} />
 
-    <!-- Hero Section -->
-    <Hero businessData={businessData} />
+      <!-- Main Content Container -->
+      <main>
+        <!-- About Me + Featured Project (YadoViet) -->
+        <Works about={businessData.about} featuredProject={businessData.featuredProject} />
 
-    <!-- Works & Projects Section -->
-    <Works links={businessData.links} />
+        <!-- Technical Skills -->
+        <Skills skills={businessData.skills} />
 
-    <!-- Skills Section -->
-    <Skills skills={businessData.skills} />
+        <!-- Experience & Philosophy -->
+        <Experience experience={businessData.experience} philosophy={businessData.philosophy} />
+      </main>
 
-    <!-- Experience Section -->
-    <Experience experience={businessData.experience} />
+      <!-- Footer -->
+      <Footer businessData={businessData} />
 
-    <!-- Footer -->
-    <Footer businessData={businessData} />
+    </div>
   </div>
 </Layout>
 
