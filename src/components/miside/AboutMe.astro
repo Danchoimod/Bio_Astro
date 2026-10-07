@@ -1,0 +1,171 @@
+---
+import Icon from "../Icon.astro";
+import type { BioConfig } from "../../data/bio";
+
+interface Props {
+  bioData: BioConfig;
+}
+
+const { bioData } = Astro.props;
+
+const aboutHighlights = [
+  {
+    icon: "💻",
+    title: "Backend & Systems",
+    desc: "Passionate about distributed system architecture, high-performance backend services with Node.js, TypeScript, PostgreSQL, and Docker.",
+  },
+  {
+    icon: "🎮",
+    title: "Gaming & Anime Vibe",
+    desc: "Fascinated by the eerie, immersive aesthetic of MiSide and indie horror games. This interface is directly inspired by that vibe!",
+  },
+  {
+    icon: "🚀",
+    title: "Product Builder",
+    desc: "Building practical products and real-world solutions that solve genuine problems for users and partners.",
+  },
+];
+
+const toolboxCategories = [
+  {
+    category: "Languages",
+    icon: "⚡",
+    skills: ["TypeScript", "JavaScript", "Python", "SQL", "HTML5/CSS3"]
+  },
+  {
+    category: "Backend & Databases",
+    icon: "🗄️",
+    skills: ["Node.js", "Express", "PostgreSQL", "Redis", "REST APIs", "Prisma"]
+  },
+  {
+    category: "DevOps & Cloud",
+    icon: "☁️",
+    skills: ["Docker", "Linux", "Git / GitHub", "Vercel", "CI/CD", "Nginx"]
+  },
+  {
+    category: "Frontend & Frameworks",
+    icon: "🎨",
+    skills: ["Astro", "React", "Tailwind CSS", "Next.js", "Vite"]
+  }
+];
+---
+
+<!-- MiSide About Me Section -->
+<section class="w-full max-w-6xl mx-auto py-16 sm:py-24 z-10 space-y-12">
+  <!-- Section Title with MiSide Neon Pink Glow -->
+  <div class="flex items-center gap-3">
+    <span
+      class="w-3 h-3 rounded-full bg-pink-500 shadow-[0_0_10px_rgba(236,72,153,0.9)] animate-pulse"
+    ></span>
+    <h2
+      class="text-2xl sm:text-3xl font-black text-white tracking-wide uppercase font-['Fredoka',sans-serif] flex items-center gap-2"
+    >
+      <span>❖ ABOUT ME</span>
+      <span class="text-pink-400 text-sm font-mono font-normal">/ OVERVIEW</span
+      >
+    </h2>
+  </div>
+
+  <!-- Main About Bio Card -->
+  <div
+    class="rounded-3xl bg-[#130317]/80 backdrop-blur-2xl border border-pink-500/20 p-6 sm:p-10 shadow-2xl shadow-black/80 space-y-6"
+  >
+    <div class="space-y-4">
+      <h3
+        class="text-xl sm:text-2xl font-bold text-pink-100 flex items-center gap-2 font-['Fredoka',sans-serif]"
+      >
+        <span>Welcome to the world of</span>
+        <span class="text-pink-400 underline decoration-pink-500/40"
+          >{bioData.name}</span
+        >! ✨
+      </h3>
+
+      <p
+        class="text-sm sm:text-base text-pink-200/80 leading-relaxed font-normal"
+      >
+        I am a software developer focusing on backend architectures, systems
+        engineering, and security. When I'm not writing code, I love diving into
+        retro and psychological horror games like MiSide.
+      </p>
+    </div>
+
+    <!-- 3 Highlight Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-4">
+      {
+        aboutHighlights.map((item) => (
+          <div class="p-5 rounded-2xl bg-black/40 border border-pink-500/15 hover:border-pink-500/40 hover:bg-pink-950/20 transition-all duration-300 space-y-2 group">
+            <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">
+              {item.icon}
+            </div>
+            <h4 class="font-bold text-sm sm:text-base text-white group-hover:text-pink-300 transition-colors">
+              {item.title}
+            </h4>
+            <p class="text-xs text-pink-200/70 leading-relaxed">{item.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Quick Info Tags -->
+    <div
+      class="pt-6 border-t border-pink-500/15 flex flex-wrap items-center justify-between gap-4 text-xs font-mono"
+    >
+      <div class="flex items-center gap-2 text-pink-300/80">
+        <span class="text-pink-400">❖ STATUS:</span>
+        <span class="text-white font-bold">{bioData.status.label}</span>
+      </div>
+      <div class="flex items-center gap-2 text-pink-300/80">
+        <span class="text-pink-400">❖ CURRENT ACTIVITY:</span>
+        <span class="text-pink-200">{bioData.activity.text}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MiSide Toolbox Section -->
+  <div class="space-y-6">
+    <div class="flex items-center gap-3">
+      <span
+        class="w-3 h-3 rounded-full bg-pink-500 shadow-[0_0_10px_rgba(236,72,153,0.9)] animate-pulse"
+      ></span>
+      <h3
+        class="text-xl sm:text-2xl font-black text-white tracking-wide uppercase font-['Fredoka',sans-serif] flex items-center gap-2"
+      >
+        <span>❖ TOOLBOX & TECH STACK</span>
+        <span class="text-pink-400 text-xs font-mono font-normal">/ SKILLS</span>
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {
+        toolboxCategories.map((cat) => (
+          <div class="rounded-3xl bg-[#130317]/80 backdrop-blur-2xl border border-pink-500/20 p-6 shadow-xl shadow-black/70 hover:border-pink-500/40 transition-all duration-300 space-y-4 group">
+            <div class="flex items-center gap-2 border-b border-pink-500/15 pb-3">
+              <span class="text-xl">{cat.icon}</span>
+              <h4 class="font-bold text-sm sm:text-base text-pink-100 font-['Fredoka',sans-serif] tracking-wide">
+                {cat.category}
+              </h4>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-1">
+              {cat.skills.map((skill) => (
+                <span class="px-3 py-1.5 rounded-xl bg-black/50 border border-pink-500/15 text-pink-200 hover:text-white hover:border-pink-400 hover:bg-pink-950/40 text-xs font-mono font-medium transition-all duration-200 shadow-sm cursor-default">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Footer signature for MiSide theme -->
+  <div
+    class="text-center pt-8 border-t border-pink-500/10 text-xs font-mono text-pink-300/50"
+  >
+    <p>
+      © {new Date().getFullYear()}
+      {bioData.name} • Designed with MiSide Vibe
+    </p>
+  </div>
+</section>

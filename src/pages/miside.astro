@@ -5,6 +5,7 @@ import Navigation from '../components/miside/Navigation.astro';
 import ProfileCard from '../components/miside/ProfileCard.astro';
 import AudioPlayer from '../components/miside/AudioPlayer.astro';
 import Sidebar from '../components/miside/Sidebar.astro';
+import AboutMe from '../components/miside/AboutMe.astro';
 import { bioData } from '../data/bio';
 import bgImage from '../assets/img/background.png';
 import avatarImage from '../assets/img/avatar.png';
@@ -12,29 +13,32 @@ import songAudio from '../assets/audio/song1.mp3';
 ---
 
 <Layout title={`${bioData.name} — MiSide Bio`} description={bioData.bio}>
-  <!-- Background Image with Overlay -->
-  <div class="fixed inset-0 -z-10 bg-black">
+  <!-- Background Image with Clean #16031D Ambient Base -->
+  <div class="fixed inset-0 -z-10 bg-[#16031D] overflow-hidden">
     <img
       src={bgImage.src}
       alt="Background"
-      class="w-full h-full object-cover object-center opacity-85 scale-100"
+      class="w-full h-full object-cover object-center scale-100 opacity-90"
     />
-    <!-- Atmospheric gradient overlay for contrast -->
-    <div class="absolute inset-0 bg-gradient-to-t from-[#140219]/90 via-black/60 to-black/80"></div>
+    <!-- Subtle gradient to blend smoothly with #16031D -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#16031D]/40 via-transparent to-[#16031D]/90 pointer-events-none"></div>
   </div>
 
   <div class="min-h-screen flex flex-col justify-between p-4 sm:p-8 md:p-10 relative">
     <!-- Top Navigation Header -->
     <Header signature={bioData.signature} avatarSrc={avatarImage.src} name={bioData.name} />
 
-    <!-- Main Grid Content: Action Buttons on the Left & Profile Card on the Right -->
-    <main class="w-full max-w-6xl mx-auto my-auto py-8 z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <!-- Hero Main Grid: Action Buttons on the Left & Profile Card on the Right -->
+    <main class="w-full max-w-6xl mx-auto my-auto py-8 sm:py-16 z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
       <!-- Left Column: Action Buttons -->
       <Navigation buttons={bioData.buttons} />
 
       <!-- Right Column: Profile Card -->
       <ProfileCard bioData={bioData} avatarSrc={avatarImage.src} />
     </main>
+
+    <!-- Additional Content Section: About Me Component -->
+    <AboutMe bioData={bioData} />
 
     <!-- Floating Audio Player -->
     <AudioPlayer audio={bioData.audio} audioSrc={songAudio} name={bioData.name} />
