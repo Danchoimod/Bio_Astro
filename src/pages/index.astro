@@ -6,10 +6,22 @@ import Skills from '../components/business/Skills.astro';
 import Experience from '../components/business/Experience.astro';
 import Footer from '../components/business/Footer.astro';
 import { businessData } from '../data/business';
+
+// MiSide Components for Subdomain Dynamic View
+import Header from '../components/miside/Header.astro';
+import Navigation from '../components/miside/Navigation.astro';
+import ProfileCard from '../components/miside/ProfileCard.astro';
+import AudioPlayer from '../components/miside/AudioPlayer.astro';
+import Sidebar from '../components/miside/Sidebar.astro';
+import { bioData } from '../data/bio';
+import bgImage from '../assets/img/background.png';
+import avatarImage from '../assets/img/avatar.png';
+import songAudio from '../assets/audio/song1.mp3';
 ---
 
 <Layout title={`${businessData.name} | ${businessData.headline}`} description={businessData.summary}>
-  <div class="min-h-screen bg-[#f8fafc] dark:bg-[#0b0f19] text-[#0f172a] dark:text-slate-100 font-['Inter',sans-serif] transition-colors duration-300">
+  <!-- 1. BUSINESS PROFILE VIEW (Default for mod2090.io.vn / root) -->
+  <div id="business-view" class="min-h-screen bg-[#f8fafc] dark:bg-[#0b0f19] text-[#0f172a] dark:text-slate-100 font-['Inter',sans-serif] transition-colors duration-300">
     <div class="max-w-[1100px] mx-auto px-6">
       
       <!-- Hero / Header -->
@@ -32,10 +44,53 @@ import { businessData } from '../data/business';
 
     </div>
   </div>
+
+  <!-- 2. MISIDE ANIME VIEW (Default for dev.mod2090.io.vn subdomain) -->
+  <div id="miside-view" class="hidden min-h-screen flex-col justify-between p-4 sm:p-8 md:p-10 relative selection:bg-pink-500 selection:text-white">
+    <!-- Background Image with Overlay -->
+    <div class="fixed inset-0 -z-10 bg-black">
+      <img
+        src={bgImage.src}
+        alt="Background"
+        class="w-full h-full object-cover object-center opacity-85 scale-100"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-[#140219]/90 via-black/60 to-black/80"></div>
+    </div>
+
+    <!-- Top Navigation Header -->
+    <Header signature={bioData.signature} avatarSrc={avatarImage.src} name={bioData.name} />
+
+    <!-- Main Grid Content: Action Buttons on the Left & Profile Card on the Right -->
+    <main class="w-full max-w-6xl mx-auto my-auto py-8 z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <Navigation buttons={bioData.buttons} />
+      <ProfileCard bioData={bioData} avatarSrc={avatarImage.src} />
+    </main>
+
+    <!-- Floating Audio Player -->
+    <AudioPlayer audio={bioData.audio} audioSrc={songAudio} name={bioData.name} />
+
+    <!-- Slide-out Sidebar Menu -->
+    <Sidebar bioData={bioData} avatarSrc={avatarImage.src} />
+  </div>
 </Layout>
 
 <script>
-  // Switch Theme with English Yes/No Confirmation
+  // Automatic Hostname Detection (dev.mod2090.io.vn vs mod2090.io.vn)
+  const businessView = document.getElementById('business-view');
+  const misideView = document.getElementById('miside-view');
+  const isDevSubdomain = window.location.hostname.startsWith('dev.') || window.location.search.includes('view=miside');
+
+  if (isDevSubdomain) {
+    businessView?.classList.add('hidden');
+    misideView?.classList.remove('hidden');
+    misideView?.classList.add('flex');
+    document.title = "Mod2090 — MiSide Bio";
+
+    // Initialize MiSide Logic
+    initMisideLogic();
+  }
+
+  // Switch Theme Button with English Confirmation
   const switchThemeBtn = document.getElementById('switch-theme-btn');
   switchThemeBtn?.addEventListener('click', () => {
     const confirmed = window.confirm("Are you sure you want to switch to the MiSide theme?");
@@ -48,10 +103,8 @@ import { businessData } from '../data/business';
     }
   });
 
-  // Dark/Light Theme Toggle
+  // Dark/Light Theme Toggle for Business View
   const themeToggle = document.getElementById('theme-toggle');
-  
-  // Initialize dark mode from localStorage or system preference
   const isDark = localStorage.getItem('color-theme') === 'dark' || 
     (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
@@ -71,4 +124,169 @@ import { businessData } from '../data/business';
       localStorage.setItem('color-theme', 'dark');
     }
   });
+
+  // MiSide Player & Interactive Scripts
+  function initMisideLogic() {
+    const soundBtn = document.getElementById('sound-btn');
+    const soundIconContainer = document.getElementById('sound-icon-container');
+    const pulseRings = document.getElementById('pulse-rings');
+    const musicPopup = document.getElementById('music-popup');
+    const closeMusicPopup = document.getElementById('close-music-popup');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const playIcon = document.getElementById('play-icon');
+    const pauseIcon = document.getElementById('pause-icon');
+    const playText = document.getElementById('play-text');
+    const volumeToggleBtn = document.getElementById('volume-toggle-btn');
+    const volOnIcon = document.getElementById('vol-on-icon');
+    const volMuteIcon = document.getElementById('vol-mute-icon');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+    const currentTimeEl = document.getElementById('current-time');
+    const totalDurationEl = document.getElementById('total-duration');
+    const bgAudio = document.getElementById('bg-audio') as HTMLAudioElement | null;
+
+    const menuBtn = document.getElementById('menu-btn');
+    const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+    const sidebarDrawer = document.getElementById('sidebar-drawer');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+    let isPopupOpen = false;
+    let isSidebarOpen = false;
+
+    function toggleSidebar(open?: boolean) {
+      isSidebarOpen = typeof open === 'boolean' ? open : !isSidebarOpen;
+      if (isSidebarOpen) {
+        sidebarDrawer?.classList.remove('translate-x-full');
+        sidebarDrawer?.classList.add('translate-x-0');
+        sidebarOverlay?.classList.remove('opacity-0', 'pointer-events-none');
+        sidebarOverlay?.classList.add('opacity-100', 'pointer-events-auto');
+        document.body.style.overflow = 'hidden';
+      } else {
+        sidebarDrawer?.classList.add('translate-x-full');
+        sidebarDrawer?.classList.remove('translate-x-0');
+        sidebarOverlay?.classList.add('opacity-0', 'pointer-events-none');
+        sidebarOverlay?.classList.remove('opacity-100', 'pointer-events-auto');
+        document.body.style.overflow = '';
+      }
+    }
+
+    menuBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSidebar(true);
+    });
+
+    closeSidebarBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSidebar(false);
+    });
+
+    sidebarOverlay?.addEventListener('click', () => {
+      toggleSidebar(false);
+    });
+
+    function formatTime(seconds: number) {
+      if (isNaN(seconds)) return '0:00';
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function setPlayingUI(playing: boolean) {
+      if (playing) {
+        soundIconContainer?.classList.add('animate-spin-slow');
+        pulseRings?.classList.remove('hidden');
+        playIcon?.classList.add('hidden');
+        pauseIcon?.classList.remove('hidden');
+        if (playText) playText.textContent = 'Pause Audio';
+      } else {
+        soundIconContainer?.classList.remove('animate-spin-slow');
+        pulseRings?.classList.add('hidden');
+        playIcon?.classList.remove('hidden');
+        pauseIcon?.classList.add('hidden');
+        if (playText) playText.textContent = 'Play Audio';
+      }
+    }
+
+    if (bgAudio) {
+      bgAudio.volume = 0.5;
+      bgAudio.play().then(() => setPlayingUI(true)).catch(() => {
+        const triggerPlay = () => {
+          bgAudio.play().then(() => setPlayingUI(true));
+          document.removeEventListener('click', triggerPlay);
+        };
+        document.addEventListener('click', triggerPlay, { once: true });
+      });
+
+      bgAudio.addEventListener('play', () => setPlayingUI(true));
+      bgAudio.addEventListener('pause', () => setPlayingUI(false));
+      bgAudio.addEventListener('timeupdate', () => {
+        if (bgAudio.duration) {
+          const percent = (bgAudio.currentTime / bgAudio.duration) * 100;
+          if (progressBar) progressBar.style.width = `${percent}%`;
+          if (currentTimeEl) currentTimeEl.textContent = formatTime(bgAudio.currentTime);
+        }
+      });
+      bgAudio.addEventListener('loadedmetadata', () => {
+        if (totalDurationEl && bgAudio.duration) totalDurationEl.textContent = formatTime(bgAudio.duration);
+      });
+    }
+
+    progressContainer?.addEventListener('click', (e) => {
+      if (!bgAudio || !bgAudio.duration) return;
+      const rect = progressContainer.getBoundingClientRect();
+      bgAudio.currentTime = ((e.clientX - rect.left) / rect.width) * bgAudio.duration;
+    });
+
+    playPauseBtn?.addEventListener('click', () => {
+      if (!bgAudio) return;
+      bgAudio.paused ? bgAudio.play() : bgAudio.pause();
+    });
+
+    volumeToggleBtn?.addEventListener('click', () => {
+      if (!bgAudio) return;
+      bgAudio.muted = !bgAudio.muted;
+      volOnIcon?.classList.toggle('hidden', bgAudio.muted);
+      volMuteIcon?.classList.toggle('hidden', !bgAudio.muted);
+    });
+
+    function toggleMusicPopup(open?: boolean) {
+      isPopupOpen = typeof open === 'boolean' ? open : !isPopupOpen;
+      musicPopup?.classList.toggle('opacity-0', !isPopupOpen);
+      musicPopup?.classList.toggle('scale-95', !isPopupOpen);
+      musicPopup?.classList.toggle('pointer-events-none', !isPopupOpen);
+      musicPopup?.classList.toggle('opacity-100', isPopupOpen);
+      musicPopup?.classList.toggle('scale-100', isPopupOpen);
+      musicPopup?.classList.toggle('pointer-events-auto', isPopupOpen);
+    }
+
+    soundBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMusicPopup();
+    });
+
+    closeMusicPopup?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMusicPopup(false);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (isPopupOpen && musicPopup && !musicPopup.contains(e.target as Node) && !soundBtn?.contains(e.target as Node)) {
+        toggleMusicPopup(false);
+      }
+    });
+
+    const textEl = document.getElementById('typewriter-text');
+    if (textEl) {
+      const fullText = textEl.getAttribute('data-text') || '';
+      let index = 0;
+      function typeChar() {
+        if (index < fullText.length) {
+          textEl!.textContent += fullText.charAt(index);
+          index++;
+          setTimeout(typeChar, 80);
+        }
+      }
+      setTimeout(typeChar, 300);
+    }
+  }
 </script>
