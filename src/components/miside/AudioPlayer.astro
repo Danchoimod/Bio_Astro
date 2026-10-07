@@ -122,6 +122,6 @@ const { audio, audioSrc, name } = Astro.props;
     </button>
   </div>
 
-  <!-- Audio Element with autoplay attribute -->
-  <audio id="bg-audio" src={audioSrc} autoplay preload="auto" loop playsinline></audio>
+  <!-- Audio Element (Controlled purely via JavaScript in MiSide view) -->
+  <audio id="bg-audio" src={audioSrc} preload="none" loop playsinline></audio>
 </div>
