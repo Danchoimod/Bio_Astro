@@ -29,12 +29,13 @@ export interface BioConfig {
   };
   audio?: BioAudio;
   buttons: BioButton[];
+  sidebarButtons?: BioButton[];
 }
 
 export const bioData: BioConfig = {
   name: "Mod2090",
   signature: "Mod2090.",
-  badge: "OPERATOR BADGE",
+  badge: "Software Developer",
   status: {
     label: "PEACEFUL MODE",
     type: "dnd",
@@ -56,8 +57,8 @@ export const bioData: BioConfig = {
       primary: true,
     },
     {
-      label: "LF Launcher",
-      url: "https://example.com/cloudcode",
+      label: "Project",
+      url: "https://example.com/Project",
     },
     {
       label: "GitHub",
@@ -68,6 +69,26 @@ export const bioData: BioConfig = {
       label: "Discord",
       url: "https://discord.com/users/608683762854658078",
       icon: "discord",
+    },
+    {
+      label: "youtube",
+      url: "https://www.youtube.com/@danchoimod",
+      icon: "play",
+    },
+  ],
+  sidebarButtons: [
+    {
+      label: "Blog",
+      url: "https://example.com/blog",
+      primary: true,
+    },
+    {
+      label: "Project",
+      url: "https://example.com/cloudcode",
+    },
+    {
+      label: "Contact Me",
+      url: "mailto:contact@danchoimod.dev",
     },
   ],
 };

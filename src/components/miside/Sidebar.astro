@@ -1,0 +1,88 @@
+---
+import Icon from '../Icon.astro';
+import type { BioConfig } from '../../data/bio';
+
+interface Props {
+  bioData: BioConfig;
+  avatarSrc: string;
+}
+
+const { bioData, avatarSrc } = Astro.props;
+---
+
+<!-- Sidebar Backdrop Overlay -->
+<div
+  id="sidebar-overlay"
+  class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 transition-opacity duration-300 opacity-0 pointer-events-none"
+></div>
+
+<!-- Slide-out Sidebar Drawer -->
+<aside
+  id="sidebar-drawer"
+  class="fixed top-0 right-0 h-full w-80 sm:w-96 bg-[#130317]/95 backdrop-blur-2xl border-l border-pink-500/20 shadow-2xl shadow-black z-50 transition-transform duration-300 ease-out transform translate-x-full flex flex-col justify-between p-6 overflow-y-auto"
+>
+  <!-- Top Header with Avatar and Close Button -->
+  <div>
+    <div class="flex items-center justify-between pb-6 border-b border-pink-500/15">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full overflow-hidden border border-pink-400/40 p-0.5 bg-black/40">
+          <img src={avatarSrc} alt={bioData.name} class="w-full h-full object-cover rounded-full" />
+        </div>
+        <div>
+          <h3 class="font-extrabold text-white text-base leading-tight font-['Fredoka',sans-serif]">
+            {bioData.name}
+          </h3>
+          <span class="text-xs font-mono text-pink-400 block tracking-wider uppercase">
+            {bioData.badge}
+          </span>
+        </div>
+      </div>
+
+      <button
+        id="close-sidebar-btn"
+        type="button"
+        aria-label="Close Menu"
+        class="w-9 h-9 rounded-xl bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/20 text-pink-300 hover:text-white flex items-center justify-center transition cursor-pointer"
+      >
+        <Icon name="close" className="w-4 h-4" />
+      </button>
+    </div>
+
+    <!-- Quick Navigation Links inside Sidebar -->
+    <div class="py-6 space-y-4">
+      <span class="text-[11px] font-mono font-bold uppercase tracking-widest text-pink-400/80 block px-1">
+        ❖ MENU NAVIGATION
+      </span>
+
+      <div class="space-y-2">
+        {(bioData.sidebarButtons || bioData.buttons).map((btn) => (
+          <a
+            href={btn.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={`flex items-center justify-between px-4 py-3 rounded-2xl text-xs sm:text-sm font-bold uppercase tracking-wide transition-all group ${
+              btn.primary
+                ? 'bg-gradient-to-r from-pink-500 to-rose-400 text-white shadow-lg shadow-pink-500/25'
+                : 'bg-black/30 hover:bg-pink-500/15 text-pink-100 hover:text-white border border-pink-500/15 hover:border-pink-500/40'
+            }`}
+          >
+            <div class="flex items-center gap-3">
+              <span class={btn.primary ? 'text-white' : 'text-pink-400'}>
+                {btn.icon ? <Icon name={btn.icon} className="w-4 h-4" /> : '❖'}
+              </span>
+              <span>{btn.label}</span>
+            </div>
+            <span class="text-xs opacity-0 group-hover:opacity-100 transition-opacity">➔</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar Footer -->
+  <div class="pt-6 border-t border-pink-500/15 text-center">
+    <p class="text-[11px] font-mono text-pink-300/60">
+      MiSide Bio Theme • {bioData.signature}
+    </p>
+  </div>
+</aside>

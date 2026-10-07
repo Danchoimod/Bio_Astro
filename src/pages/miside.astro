@@ -4,6 +4,7 @@ import Header from '../components/miside/Header.astro';
 import Navigation from '../components/miside/Navigation.astro';
 import ProfileCard from '../components/miside/ProfileCard.astro';
 import AudioPlayer from '../components/miside/AudioPlayer.astro';
+import Sidebar from '../components/miside/Sidebar.astro';
 import { bioData } from '../data/bio';
 import bgImage from '../assets/img/background.png';
 import avatarImage from '../assets/img/avatar.png';
@@ -37,6 +38,9 @@ import songAudio from '../assets/audio/song1.mp3';
 
     <!-- Floating Audio Player -->
     <AudioPlayer audio={bioData.audio} audioSrc={songAudio} name={bioData.name} />
+
+    <!-- Slide-out Sidebar Menu -->
+    <Sidebar bioData={bioData} avatarSrc={avatarImage.src} />
   </div>
 </Layout>
 
@@ -60,7 +64,46 @@ import songAudio from '../assets/audio/song1.mp3';
   const totalDurationEl = document.getElementById('total-duration');
   const bgAudio = document.getElementById('bg-audio') as HTMLAudioElement | null;
 
+  // Sidebar Elements
+  const menuBtn = document.getElementById('menu-btn');
+  const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+  const sidebarDrawer = document.getElementById('sidebar-drawer');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+
   let isPopupOpen = false;
+  let isSidebarOpen = false;
+
+  // Toggle Sidebar Function
+  function toggleSidebar(open?: boolean) {
+    isSidebarOpen = typeof open === 'boolean' ? open : !isSidebarOpen;
+    if (isSidebarOpen) {
+      sidebarDrawer?.classList.remove('translate-x-full');
+      sidebarDrawer?.classList.add('translate-x-0');
+      sidebarOverlay?.classList.remove('opacity-0', 'pointer-events-none');
+      sidebarOverlay?.classList.add('opacity-100', 'pointer-events-auto');
+      document.body.style.overflow = 'hidden';
+    } else {
+      sidebarDrawer?.classList.add('translate-x-full');
+      sidebarDrawer?.classList.remove('translate-x-0');
+      sidebarOverlay?.classList.add('opacity-0', 'pointer-events-none');
+      sidebarOverlay?.classList.remove('opacity-100', 'pointer-events-auto');
+      document.body.style.overflow = '';
+    }
+  }
+
+  menuBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleSidebar(true);
+  });
+
+  closeSidebarBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleSidebar(false);
+  });
+
+  sidebarOverlay?.addEventListener('click', () => {
+    toggleSidebar(false);
+  });
 
   // Format time (seconds -> mm:ss)
   function formatTime(seconds: number) {
@@ -209,14 +252,4 @@ import songAudio from '../assets/audio/song1.mp3';
 
     setTimeout(typeChar, 300);
   }
-
-  // Switch Theme to Business Profile with Confirmation
-  const switchThemeBtn = document.getElementById('switch-theme-btn');
-  switchThemeBtn?.addEventListener('click', () => {
-    const confirmed = window.confirm("Are you sure you want to switch to the Business theme?");
-    if (confirmed) {
-      window.location.href = "/";
-    }
-  });
 </script>
-

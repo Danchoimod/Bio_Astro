@@ -26,28 +26,18 @@ const { signature, avatarSrc, name } = Astro.props;
     </span>
   </a>
 
-  <!-- Right: Action buttons (Profile Switcher & Menu) -->
+  <!-- Right: Action buttons (Menu) -->
   <div class="flex items-center gap-2.5 relative">
-    <!-- Switch Theme Button with requested style -->
-    <button
-      id="switch-theme-btn"
-      type="button"
-      title="Switch Theme"
-      class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-pink-400/50 text-pink-300 hover:text-white transition cursor-pointer backdrop-blur-md shadow-lg shadow-black/40 group relative"
-    >
-      <Icon name="palette" className="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
-    </button>
-
-    <!-- Menu button (Hamburger 3 lines) -->
+    <!-- Menu button (Hamburger 3 lines - Pink MiSide Style) -->
     <button
       type="button"
       id="menu-btn"
       aria-label="Open Menu"
-      class="w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-pink-400/50 transition cursor-pointer backdrop-blur-md shadow-lg shadow-black/40 group"
+      class="w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-full bg-[#1b0422]/90 hover:bg-pink-600/30 border border-pink-500/40 hover:border-pink-400 text-pink-300 hover:text-white transition-all cursor-pointer backdrop-blur-md shadow-lg shadow-pink-500/20 hover:shadow-pink-500/40 hover:scale-105 group"
     >
-      <span class="w-4 h-0.5 bg-slate-200 group-hover:bg-white transition-colors rounded-full"></span>
-      <span class="w-4 h-0.5 bg-slate-200 group-hover:bg-white transition-colors rounded-full"></span>
-      <span class="w-4 h-0.5 bg-slate-200 group-hover:bg-white transition-colors rounded-full"></span>
+      <span class="w-4 h-0.5 bg-pink-400 group-hover:bg-pink-200 transition-colors rounded-full shadow-[0_0_6px_rgba(244,114,182,0.8)]"></span>
+      <span class="w-4 h-0.5 bg-pink-400 group-hover:bg-pink-200 transition-colors rounded-full shadow-[0_0_6px_rgba(244,114,182,0.8)]"></span>
+      <span class="w-4 h-0.5 bg-pink-400 group-hover:bg-pink-200 transition-colors rounded-full shadow-[0_0_6px_rgba(244,114,182,0.8)]"></span>
     </button>
   </div>
 </header>
