@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import LinkCard from '../components/LinkCard.astro';
+import { bioData } from '../data/bio';
+
+// Group links by category if present
+const categories = Array.from(new Set(bioData.links.map((link) => link.category).filter(Boolean))) as string[];
+---
+
+<Layout title={`${bioData.name} - Bio & Links`} description={bioData.bio}>
+  <main class="flex flex-col items-center text-center">
+    <!-- Profile Section -->
+    <header class="flex flex-col items-center w-full">
+      <!-- Avatar with Ring Glow -->
+      <div class="relative group mb-5">
+        <div class="absolute -inset-1 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 rounded-full blur-md opacity-75 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+        <img
+          src={bioData.avatar}
+          alt={bioData.name}
+          class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-slate-900 shadow-xl"
+        />
+        <span class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-slate-950 rounded-full" title="Online / Active"></span>
+      </div>
+
+      <!-- Name & Title -->
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
+        {bioData.name}
+        <span class="text-indigo-400" title="Verified">
+          <svg class="w-5 h-5 inline" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+          </svg>
+        </span>
+      </h1>
+
+      <p class="text-sm sm:text-base font-medium text-indigo-300 mt-1">
+        {bioData.title}
+      </p>
+
+      {bioData.location && (
+        <p class="text-xs text-slate-400 mt-1 flex items-center gap-1">
+          <span>📍</span> {bioData.location}
+        </p>
+      )}
+
+      <!-- Bio Description -->
+      <p class="mt-3 text-slate-300 text-sm sm:text-base max-w-md leading-relaxed">
+        {bioData.bio}
+      </p>
+
+      <!-- Status Badges -->
+      {bioData.badges && bioData.badges.length > 0 && (
+        <div class="flex flex-wrap justify-center gap-2 mt-4">
+          {bioData.badges.map((badge) => (
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-slate-900/80 border border-slate-800 text-slate-300 shadow-sm">
+              {badge}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <!-- Social Icons Bar -->
+      <div class="flex items-center justify-center gap-3 mt-6">
+        {bioData.socials.map((social) => (
+          <a
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={social.name}
+            class="w-10 h-10 rounded-xl bg-slate-900/80 hover:bg-indigo-600/20 text-slate-300 hover:text-indigo-300 border border-slate-800 hover:border-indigo-500/40 flex items-center justify-center transition-all duration-200 hover:-translate-y-1 shadow-sm"
+          >
+            <Icon name={social.icon} className="w-5 h-5" />
+          </a>
+        ))}
+      </div>
+    </header>
+
+    <!-- Links Section -->
+    <section class="w-full mt-10 space-y-6">
+      {categories.length > 0 ? (
+        categories.map((cat) => (
+          <div class="space-y-3">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 text-left pl-1">
+              {cat}
+            </h2>
+            <div class="space-y-3">
+              {bioData.links
+                .filter((l) => l.category === cat)
+                .map((link) => (
+                  <LinkCard {...link} />
+                ))}
+            </div>
+          </div>
+        ))
+      ) : (
+        <div class="space-y-3">
+          {bioData.links.map((link) => (
+            <LinkCard {...link} />
+          ))}
+        </div>
+      )}
+    </section>
+
+    <!-- Skills / Tech Stack -->
+    {bioData.skills && bioData.skills.length > 0 && (
+      <section class="w-full mt-10 p-5 rounded-2xl bg-slate-900/40 border border-slate-800/80 text-left">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+          Tech Stack & Skills
+        </h2>
+        <div class="flex flex-wrap gap-2">
+          {bioData.skills.map((skill) => (
+            <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800/70 border border-slate-700/60 text-indigo-300 hover:border-indigo-500/30 transition-colors">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Footer -->
+    <footer class="mt-12 text-center text-xs text-slate-500">
+      <p>© {new Date().getFullYear()} {bioData.name}. All rights reserved.</p>
+      <p class="mt-1 text-slate-600">
+        Built with <a href="https://astro.build" target="_blank" class="hover:text-indigo-400 transition-colors">Astro</a> & <a href="https://tailwindcss.com" target="_blank" class="hover:text-indigo-400 transition-colors">Tailwind CSS</a>
+      </p>
+    </footer>
+  </main>
+</Layout>
